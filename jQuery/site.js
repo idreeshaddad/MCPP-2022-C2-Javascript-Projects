@@ -2,21 +2,52 @@ $(function () {
 
     $("#addTodoBtn").click(function () {
 
-        // <i class="fa-solid fa-circle-check me-2"></i>
-        const todoItem = $("#todoInput").val();
-        const item = `
-            <li role="button" class="list-group-item">
-            <i class="fa-regular fa-circle me-2"></i>
-                ${todoItem}
-            </li>`;
+        addItemToList();
+        clearTodoText();
+    });
 
-        $("#checkList").prepend(item);
+    $("#todoInput").on("keydown", function (event) {
+
+        if (event.which == 13) {
+            addItemToList();
+            clearTodoText();
+        }
     });
 
     $('body').on('click', '#checkList li', function () {
 
-        $("#checkList li").removeClass("active");
-        $(this).addClass("active");
+        setCheckToItem(this);
+        removeTodoItem(this);
     });
 
 });
+
+function addItemToList() {
+
+    const todoItem = $("#todoInput").val();
+    const item = `
+        <li role="button" class="list-group-item">
+            <i class="fa-regular fa-circle me-2"></i>
+                ${todoItem}
+        </li>`;
+
+    $("#checkList").prepend(item);
+}
+
+function clearTodoText() {
+
+    $("#todoInput").val('');
+}
+
+function removeTodoItem(checkListItem) {
+
+    $(checkListItem).fadeOut("slow", function () {
+        $(checkListItem).remove();
+    });
+}
+
+function setCheckToItem(checkListItem) {
+
+    $(checkListItem).find("i").removeClass("fa-circle");
+    $(checkListItem).find("i").addClass("fa-circle-check");
+}
