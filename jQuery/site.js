@@ -1,11 +1,28 @@
 $(function () {
 
+    initAppControls();
+
+});
+
+function initAppControls() {
+
+    initAddButton();
+
+    initAddItemOnEnterAndClear();
+
+    initRemoveItemOnClick();
+}
+
+function initAddButton() {
+
     $("#addTodoBtn").click(function () {
 
         addItemToList();
         clearTodoText();
     });
+}
 
+function initAddItemOnEnterAndClear() {
     $("#todoInput").on("keydown", function (event) {
 
         if (event.which == 13) {
@@ -13,14 +30,16 @@ $(function () {
             clearTodoText();
         }
     });
+}
+
+function initRemoveItemOnClick() {
 
     $('body').on('click', '#checkList li', function () {
 
         setCheckToItem(this);
         removeTodoItem(this);
     });
-
-});
+}
 
 function addItemToList() {
 
